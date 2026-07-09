@@ -8,7 +8,7 @@
 import Foundation
 import CryptoKit
 import LocalAuthentication
-import CipherKit
+import AnvyxCipherKit
 
 /// A Secure Enclave P-256 key whose **use is gated by Face ID / Touch ID**.
 /// The private key never leaves the enclave; each `sign` triggers a biometric

@@ -7,8 +7,8 @@
 
 import XCTest
 import CryptoKit
-import CipherKit
-@testable import CipherFile
+import AnvyxCipherKit
+@testable import AnvyxCipherFile
 
 final class CipherFileTests: XCTestCase {
 

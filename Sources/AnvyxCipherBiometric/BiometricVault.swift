@@ -9,7 +9,7 @@ import Foundation
 import Security
 import LocalAuthentication
 import CryptoKit
-import CipherKit
+import AnvyxCipherKit
 
 /// A biometric-protected local vault: encrypts data with an AES key that lives
 /// in the Keychain behind **Face ID / Touch ID** access control. Any access

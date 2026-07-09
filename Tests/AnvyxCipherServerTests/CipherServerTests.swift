@@ -7,8 +7,8 @@
 
 import XCTest
 import CryptoKit
-import CipherKit
-@testable import CipherServer
+import AnvyxCipherKit
+@testable import AnvyxCipherServer
 
 final class CipherServerTests: XCTestCase {
 

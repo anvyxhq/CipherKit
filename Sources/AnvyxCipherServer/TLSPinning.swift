@@ -7,7 +7,7 @@
 
 import Foundation
 import Security
-import CipherKit
+import AnvyxCipherKit
 
 /// A `URLSessionDelegate` that pins the server's leaf **public key** — the
 /// connection only succeeds if its key's SHA-256 (base64) is in the pinned set.

@@ -7,23 +7,19 @@ let package = Package(
         .iOS(.v16)
     ],
     products: [
-        // Core crypto primitives.
-        .library(name: "CipherKit", targets: ["CipherKit"]),
-        // Chunked encrypted file storage + key rotation (depends on core).
-        .library(name: "CipherFile", targets: ["CipherFile"]),
-        // Face ID / Touch ID gated Secure Enclave keys (depends on core).
-        .library(name: "CipherBiometric", targets: ["CipherBiometric"]),
-        // Server-facing helpers: JWT signing, RSA private-key ops, TLS pinning.
-        .library(name: "CipherServer", targets: ["CipherServer"]),
+        .library(name: "AnvyxCipherKit", targets: ["AnvyxCipherKit"]),
+        .library(name: "AnvyxCipherFile", targets: ["AnvyxCipherFile"]),
+        .library(name: "AnvyxCipherBiometric", targets: ["AnvyxCipherBiometric"]),
+        .library(name: "AnvyxCipherServer", targets: ["AnvyxCipherServer"]),
     ],
     targets: [
-        .target(name: "CipherKit"),
-        .target(name: "CipherFile", dependencies: ["CipherKit"]),
-        .target(name: "CipherBiometric", dependencies: ["CipherKit"]),
-        .target(name: "CipherServer", dependencies: ["CipherKit"]),
-        .testTarget(name: "CipherKitTests", dependencies: ["CipherKit"]),
-        .testTarget(name: "CipherFileTests", dependencies: ["CipherFile"]),
-        .testTarget(name: "CipherBiometricTests", dependencies: ["CipherBiometric"]),
-        .testTarget(name: "CipherServerTests", dependencies: ["CipherServer"]),
+        .target(name: "AnvyxCipherKit"),
+        .target(name: "AnvyxCipherFile", dependencies: ["AnvyxCipherKit"]),
+        .target(name: "AnvyxCipherBiometric", dependencies: ["AnvyxCipherKit"]),
+        .target(name: "AnvyxCipherServer", dependencies: ["AnvyxCipherKit"]),
+        .testTarget(name: "AnvyxCipherKitTests", dependencies: ["AnvyxCipherKit"]),
+        .testTarget(name: "AnvyxCipherFileTests", dependencies: ["AnvyxCipherFile"]),
+        .testTarget(name: "AnvyxCipherBiometricTests", dependencies: ["AnvyxCipherBiometric"]),
+        .testTarget(name: "AnvyxCipherServerTests", dependencies: ["AnvyxCipherServer"]),
     ]
 )

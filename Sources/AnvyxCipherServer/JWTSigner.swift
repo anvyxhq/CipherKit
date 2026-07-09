@@ -8,7 +8,7 @@
 import Foundation
 import CryptoKit
 import Security
-import CipherKit
+import AnvyxCipherKit
 
 /// Create signed JWTs (verify them with `CipherKit.JWTVerifier`).
 public enum JWTSigner {

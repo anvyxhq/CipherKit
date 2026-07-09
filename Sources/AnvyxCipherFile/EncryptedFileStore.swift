@@ -7,7 +7,7 @@
 
 import Foundation
 import CryptoKit
-import CipherKit
+import AnvyxCipherKit
 
 /// Streaming, chunked file encryption — encrypt/decrypt large files without
 /// loading them fully into memory. Each chunk is a self-contained AES-GCM box

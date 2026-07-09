@@ -7,7 +7,7 @@
 
 import XCTest
 import CryptoKit
-@testable import CipherBiometric
+@testable import AnvyxCipherBiometric
 
 final class CipherBiometricTests: XCTestCase {
     // Secure Enclave + biometrics require a real device; here we verify the API

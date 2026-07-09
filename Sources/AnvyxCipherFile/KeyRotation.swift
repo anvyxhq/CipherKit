@@ -7,7 +7,7 @@
 
 import Foundation
 import CryptoKit
-import CipherKit
+import AnvyxCipherKit
 
 /// Re-encrypt data / files from an old key to a new key (key rotation).
 public enum KeyRotation {

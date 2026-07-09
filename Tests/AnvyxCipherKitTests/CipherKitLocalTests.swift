@@ -7,7 +7,7 @@
 
 import XCTest
 import CryptoKit
-@testable import CipherKit
+@testable import AnvyxCipherKit
 
 final class CipherKitLocalTests: XCTestCase {
 

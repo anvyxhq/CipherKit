@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import CipherKit
+@testable import AnvyxCipherKit
 
 final class OTPTests: XCTestCase {
 
