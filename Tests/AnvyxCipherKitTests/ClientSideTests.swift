@@ -13,10 +13,10 @@ final class ClientSideTests: XCTestCase {
     func testOTPAuthURIParseAndCode() {
         // secret "12345678901234567890" base32-encoded, TOTP SHA1 8 digits.
         let base32 = Base32.encode(Data("12345678901234567890".utf8))
-        let uri = "otpauth://totp/Anvora:anhpt?secret=\(base32)&issuer=Anvora&digits=8&period=30&algorithm=SHA1"
+        let uri = "otpauth://totp/Anvyx:anhpt?secret=\(base32)&issuer=Anvyx&digits=8&period=30&algorithm=SHA1"
         guard let parsed = OTPAuthURI(uri) else { return XCTFail("parse failed") }
         XCTAssertEqual(parsed.kind, .totp)
-        XCTAssertEqual(parsed.issuer, "Anvora")
+        XCTAssertEqual(parsed.issuer, "Anvyx")
         XCTAssertEqual(parsed.digits, 8)
         XCTAssertEqual(parsed.currentCode(date: Date(timeIntervalSince1970: 59)), "94287082")
     }

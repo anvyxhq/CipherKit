@@ -24,14 +24,14 @@ final class JWTAndStoreTests: XCTestCase {
         let exp = Date().addingTimeInterval(3600).timeIntervalSince1970
         let token = makeToken(
             header: ["alg": "ES256", "typ": "JWT"],
-            payload: ["iss": "https://appleid.apple.com", "aud": "com.anvora.app", "nonce": "abc", "exp": exp]
+            payload: ["iss": "https://appleid.apple.com", "aud": "com.anvyx.app", "nonce": "abc", "exp": exp]
         ) { try! key.signature(for: $0).rawRepresentation }
 
         guard let jwt = JWT(token) else { return XCTFail("parse") }
         XCTAssertEqual(jwt.algorithm, "ES256")
         XCTAssertTrue(JWTVerifier.verifyES256(jwt, publicKey: key.publicKey))
         XCTAssertTrue(JWTVerifier.validateClaims(jwt, issuer: "https://appleid.apple.com",
-                                                 audience: "com.anvora.app", nonce: "abc"))
+                                                 audience: "com.anvyx.app", nonce: "abc"))
         XCTAssertFalse(JWTVerifier.validateClaims(jwt, nonce: "wrong"))
     }
 
@@ -61,7 +61,7 @@ final class JWTAndStoreTests: XCTestCase {
     }
 
     func testKeychainStoreRoundTrip() throws {
-        let store = KeychainStore(service: "com.anvora.cipherkit.tests")
+        let store = KeychainStore(service: "com.anvyx.cipherkit.tests")
         let key = AESGCM.randomKey()
         store.remove(for: "k")
         do {

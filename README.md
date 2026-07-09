@@ -11,10 +11,10 @@ On-device cryptography toolkit built on Apple **CryptoKit** + **Security** — n
 
 ```swift
 // Package.swift
-.product(name: "CipherKit", package: "CipherKit")          // always
-.product(name: "CipherFile", package: "CipherKit")         // if you need file encryption
-.product(name: "CipherBiometric", package: "CipherKit")    // if you need Face ID keys
-.product(name: "CipherServer", package: "CipherKit")       // if you talk to a server
+.product(name: "AnvyxCipherKit", package: "CipherKit")          // always
+.product(name: "AnvyxCipherFile", package: "CipherKit")         // if you need file encryption
+.product(name: "AnvyxCipherBiometric", package: "CipherKit")    // if you need Face ID keys
+.product(name: "AnvyxCipherServer", package: "CipherKit")       // if you talk to a server
 ```
 
 Requires **iOS 16+**. Secure Enclave / biometrics / Keychain need a **real device** (not the Simulator).
@@ -65,7 +65,7 @@ let shared = try KeyAgreement.sharedKey(privateKey: mine, peerPublicKey: theirs)
 
 ### 2FA (TOTP / HOTP)
 ```swift
-let uri = OTPAuthURI("otpauth://totp/Anvora:me?secret=JBSWY3DPEHPK3PXP&issuer=Anvora")!
+let uri = OTPAuthURI("otpauth://totp/Anvyx:me?secret=JBSWY3DPEHPK3PXP&issuer=Anvyx")!
 uri.currentCode()                         // 6-digit code now
 TOTP.secondsRemaining()                   // countdown
 ```
