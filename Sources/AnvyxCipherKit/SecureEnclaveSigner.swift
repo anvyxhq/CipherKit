@@ -9,7 +9,7 @@ import Foundation
 import CryptoKit
 
 /// Hardware-backed P-256 signing using the Secure Enclave. The private key
-/// never leaves the chip; persist ``dataRepresentation`` (an encrypted blob) to
+/// never leaves the chip; persist `dataRepresentation` (an encrypted blob) to
 /// recreate it later. Fully on-device — no backend needed.
 ///
 /// - Note: The Secure Enclave is only available on real devices, so
