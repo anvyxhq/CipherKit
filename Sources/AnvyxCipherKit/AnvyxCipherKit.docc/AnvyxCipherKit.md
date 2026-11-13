@@ -59,5 +59,6 @@ try store.setKey(key, for: "session")
 ### Tokens & Encoding
 - ``JWT``
 - ``JWTVerifier``
+- ``CanonicalJSON``
 - ``Base32``
 - ``CBOR``

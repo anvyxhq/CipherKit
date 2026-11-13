@@ -20,7 +20,9 @@ let package = Package(
         .library(name: "AnvyxCipherServer", targets: ["AnvyxCipherServer"]),
     ],
     targets: [
-        .target(name: "AnvyxCipherKit", swiftSettings: concurrencyBaseline),
+        .target(name: "AnvyxCipherKit",
+                resources: [.process("PrivacyInfo.xcprivacy")],
+                swiftSettings: concurrencyBaseline),
         .target(name: "AnvyxCipherFile", dependencies: ["AnvyxCipherKit"], swiftSettings: concurrencyBaseline),
         .target(name: "AnvyxCipherBiometric", dependencies: ["AnvyxCipherKit"], swiftSettings: concurrencyBaseline),
         .target(name: "AnvyxCipherServer", dependencies: ["AnvyxCipherKit"], swiftSettings: concurrencyBaseline),

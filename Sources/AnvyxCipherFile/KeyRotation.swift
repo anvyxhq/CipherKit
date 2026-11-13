@@ -18,19 +18,19 @@ public enum KeyRotation {
     }
 
     /// Re-encrypt a chunked ``EncryptedFileStore`` file to a new key, atomically
-    /// (writes to a temp file, then replaces the original).
+    /// (the original is replaced only after the new file is fully written).
+    ///
+    /// - Parameter options: Storage of the re-encrypted file. The intermediate
+    ///   plaintext always lives in a temporary file with complete protection
+    ///   and is removed afterwards.
     public static func reencryptFile(at url: URL, from oldKey: SymmetricKey, to newKey: SymmetricKey,
-                                     chunkSize: Int = EncryptedFileStore.defaultChunkSize) throws {
+                                     chunkSize: Int = EncryptedFileStore.defaultChunkSize,
+                                     options: EncryptedFileStore.WriteOptions = .init()) throws {
         let plainURL = FileManager.default.temporaryDirectory
             .appendingPathComponent("rotate-plain-\(UUID().uuidString)")
-        let cipherURL = FileManager.default.temporaryDirectory
-            .appendingPathComponent("rotate-cipher-\(UUID().uuidString)")
-        defer {
-            try? FileManager.default.removeItem(at: plainURL)
-            try? FileManager.default.removeItem(at: cipherURL)
-        }
+        defer { try? FileManager.default.removeItem(at: plainURL) }
         try EncryptedFileStore.decrypt(fileAt: url, to: plainURL, using: oldKey)
-        try EncryptedFileStore.encrypt(fileAt: plainURL, to: cipherURL, using: newKey, chunkSize: chunkSize)
-        _ = try FileManager.default.replaceItemAt(url, withItemAt: cipherURL)
+        try EncryptedFileStore.encrypt(fileAt: plainURL, to: url, using: newKey,
+                                       chunkSize: chunkSize, options: options)
     }
 }

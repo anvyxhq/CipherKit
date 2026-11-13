@@ -72,8 +72,45 @@ final class JWTAndStoreTests: XCTestCase {
         }
         XCTAssertEqual(store.key(for: "k")?.withUnsafeBytes { Data($0) },
                        key.withUnsafeBytes { Data($0) })
+        // Overwrite keeps a single item and replaces the value.
+        try store.set(Data("second".utf8), for: "k", accessibility: .whenUnlockedThisDeviceOnly)
+        XCTAssertEqual(try store.requireData(for: "k"), Data("second".utf8))
         store.remove(for: "k")
         XCTAssertNil(store.data(for: "k"))
+        XCTAssertThrowsError(try store.requireData(for: "k")) {
+            XCTAssertEqual($0 as? KeychainStore.Failure, .itemNotFound)
+        }
+    }
+
+    func testKeychainFailureMapping() {
+        XCTAssertEqual(KeychainStore.Failure(errSecItemNotFound), .itemNotFound)
+        XCTAssertEqual(KeychainStore.Failure(errSecInteractionNotAllowed), .interactionNotAllowed)
+        XCTAssertEqual(KeychainStore.Failure(errSecDuplicateItem), .status(errSecDuplicateItem))
+        XCTAssertNotEqual(KeychainStore.Failure(errSecInteractionNotAllowed), .itemNotFound)
+    }
+
+    func testKeychainQueryBuilding() {
+        let store = KeychainStore(service: "svc", accessibility: .whenUnlockedThisDeviceOnly)
+        let item = store.itemQuery(account: "acct")
+        XCTAssertEqual(item[kSecAttrService] as? String, "svc")
+        XCTAssertEqual(item[kSecAttrAccount] as? String, "acct")
+        XCTAssertEqual(item[kSecClass] as? String, kSecClassGenericPassword as String)
+        // The match query must not carry value/accessibility, or SecItemUpdate would miss the item.
+        XCTAssertNil(item[kSecValueData])
+        XCTAssertNil(item[kSecAttrAccessible])
+
+        let read = store.readQuery(account: "acct")
+        XCTAssertEqual(read[kSecReturnData] as? Bool, true)
+        XCTAssertEqual(read[kSecMatchLimit] as? String, kSecMatchLimitOne as String)
+
+        let payload = Data([1, 2, 3])
+        let defaults = store.valueAttributes(payload, accessibility: nil)
+        XCTAssertEqual(defaults[kSecValueData] as? Data, payload)
+        XCTAssertEqual(defaults[kSecAttrAccessible] as? String, kSecAttrAccessibleWhenUnlockedThisDeviceOnly as String)
+        let overridden = store.valueAttributes(payload, accessibility: .afterFirstUnlock)
+        XCTAssertEqual(overridden[kSecAttrAccessible] as? String, kSecAttrAccessibleAfterFirstUnlock as String)
+        XCTAssertEqual(KeychainStore(service: "svc").valueAttributes(payload, accessibility: nil)[kSecAttrAccessible] as? String,
+                       kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly as String)
     }
 
     func testSecureZero() {
