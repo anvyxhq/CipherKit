@@ -17,7 +17,7 @@ On-device cryptography toolkit built on Apple **CryptoKit** + **Security** — n
 .product(name: "AnvyxCipherServer", package: "CipherKit")       // if you talk to a server
 ```
 
-Requires **iOS 16+**. Secure Enclave / biometrics / Keychain need a **real device** (not the Simulator).
+Requires **iOS 16+** and **Swift 6.2+ (Xcode 26+)**. Secure Enclave / biometrics / Keychain need a **real device** (not the Simulator).
 
 ---
 
